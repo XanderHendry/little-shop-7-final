@@ -98,22 +98,22 @@ def load_test_data_bd
   @m6_item3 = create(:item, merchant: @merchant6)
 
   # merchant1 discounts
-  @m1_discount1 = create(:discount, merchant: @merchant1)
-  @m1_discount2 = create(:discount, merchant: @merchant1)
+  @m1_discount1 = @merchant1.discounts.create!(threshold: 10, percentage: 15)
+  @m1_discount2 = @merchant1.discounts.create!(threshold: 20, percentage: 30)
   # merchant2 discounts
-  @m2_discount1 = create(:discount, merchant: @merchant2)
-  @m2_discount2 = create(:discount, merchant: @merchant2)
+  @m2_discount1 = @merchant2.discounts.create!(threshold: 15, percentage: 10)
+  @m2_discount2 = @merchant2.discounts.create!(threshold: 20, percentage: 15)
   # merchant3 discounts
-  @m3_discount1 = create(:discount, merchant: @merchant3)
-  @m3_discount2 = create(:discount, merchant: @merchant3)
+  @m3_discount1 = @merchant3.discounts.create!(threshold: 25, percentage: 30)
+  @m3_discount2 = @merchant3.discounts.create!(threshold: 10, percentage: 10)
   # merchant4 discounts
-  @m4_discount1 = create(:discount, merchant: @merchant4)
-  @m4_discount2 = create(:discount, merchant: @merchant4)
+  @m4_discount1 = @merchant4.discounts.create!(threshold: 10, percentage: 15)
+  @m4_discount2 = @merchant4.discounts.create!(threshold: 20, percentage: 30)
   # merchant5 discounts
-  @m5_discount1 = create(:discount, merchant: @merchant5)
-  @m5_discount2 = create(:discount, merchant: @merchant5)
+  @m5_discount1 = @merchant5.discounts.create!(threshold: 5, percentage: 15)
+  @m5_discount2 = @merchant5.discounts.create!(threshold: 20, percentage: 30)
   # merchant6 discounts
-  @m6_discount1 = create(:discount, merchant: @merchant6)
-  @m6_discount2 = create(:discount, merchant: @merchant6)
+  @m6_discount1 = @merchant6.discounts.create!(threshold: 50, percentage: 25)
+  @m6_discount2 = @merchant6.discounts.create!(threshold: 100, percentage: 50)
 end
 
