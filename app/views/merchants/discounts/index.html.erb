@@ -1,0 +1,5 @@
+<h1><%= "#{@merchant.name} Bulk Discounts" %></h1>
+<% @merchant.discounts.each_with_index do |discount, index| %>
+  <p><%= link_to "Discount #{index + 1}", "/merchants/#{@merchant.id}/disounts/#{discount.id}", method: :get %></p>
+  <%= "Percentage: #{discount.percentage}, Threshold: #{discount.threshold}" %>
+<% end %>

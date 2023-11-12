@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     resources :merchants, only: [:show] do
       resource :dashboard, only: [:show]
       resources :items
-      resources :invoices, only: [:show, :index, :new, :create, :edit, :update, :destroy]
+      resources :invoices, only: [:show, :index]
+      resources :discounts, only: [:index, :show]
     end
   end
 
