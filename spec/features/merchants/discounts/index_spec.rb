@@ -14,5 +14,13 @@ RSpec.describe "Merchant Discounts Index (/merchants/:id/discounts)" do
     expect(page).to have_link("Discount 2")
     expect(page).to have_content("Percentage: #{@m1_discount2.percentage}, Threshold: #{@m1_discount2.threshold}")
    end
+
+   it "displays a link to create a new discount, that takes me to a form" do
+    visit "/merchants/#{@merchant1.id}/discounts"
+
+    expect(page).to have_link("New Discount")
+    click_link "New Discount"
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/discounts/new")
+   end
   end
 end
