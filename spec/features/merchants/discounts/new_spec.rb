@@ -30,7 +30,7 @@ RSpec.describe "Merchant Discounts New (/merchants/:id/discounts/new)" do
       fill_in :threshold, with: 30
       click_button "Create"
       expect(current_path).to eq("/merchants/#{@merchant1.id}/discounts/new")
-      expect(page).to have_content("Error: Percentage is required")
+      expect(page).to have_content("Discount Not Saved!")
     end
   end
 end 
