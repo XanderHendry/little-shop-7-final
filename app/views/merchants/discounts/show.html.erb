@@ -1,2 +1,3 @@
 <%= "Quantity Threshold: #{@discount.threshold}" %><br>
-<%= "Percentage Discount: #{@discount.percentage}%" %>
+<%= "Percentage Discount: #{@discount.percentage}%" %><br>
+<%= button_to "Edit Discount", "/merchants/#{@merchant.id}/discounts/#{@discount.id}/edit", method: :get%>

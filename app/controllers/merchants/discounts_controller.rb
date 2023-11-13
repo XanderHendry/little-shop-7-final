@@ -4,6 +4,7 @@ class Merchants::DiscountsController < ApplicationController
   end
 
   def show
+    @merchant = Merchant.find(params[:merchant_id])
     @discount = Discount.find(params[:id])
   end
 
@@ -16,7 +17,22 @@ class Merchants::DiscountsController < ApplicationController
     if discount.save
       redirect_to "/merchants/#{params[:merchant_id]}/discounts"
     else
-      redirect_to "/merchants/#{params[:merchant_id]}/discounts/new"
+      redirect_back(fallback_location: "/merchants/#{params[:merchant_id]}/discounts")
+      flash[:error] = "Discount Not Saved!"
+    end
+  end
+
+  def edit
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    discount = Discount.find(params[:id])
+    if discount.update(discount_params)
+      redirect_to "/merchants/#{params[:merchant_id]}/discounts/#{discount.id}"
+    else
+      redirect_back(fallback_location: "/merchants/#{params[:merchant_id]}/discounts")
       flash[:error] = "Discount Not Saved!"
     end
   end
@@ -25,5 +41,11 @@ class Merchants::DiscountsController < ApplicationController
     discount = Discount.find(params[:id])
     discount.destroy
     redirect_back(fallback_location: "/merchants/#{params[:merchant_id]}/discounts")
+  end
+
+  private
+
+  def discount_params
+    params.permit(:percentage, :threshold)
   end
 end
