@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resource :dashboard, only: [:show]
       resources :items
       resources :invoices, only: [:show, :index]
-      resources :discounts, only: [:index, :show, :create, :new]
+      resources :discounts, only: [:index, :show, :create, :new, :destroy]
     end
   end
 
