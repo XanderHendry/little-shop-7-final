@@ -16,4 +16,10 @@ class Merchants::DiscountsController < ApplicationController
       flash[:error] = "Discount Not Saved!"
     end
   end
+
+  def destroy
+    discount = Discount.find(params[:id])
+    discount.destroy
+    redirect_back(fallback_location: "/merchants/#{params[:merchant_id]}/discounts")
+  end
 end
