@@ -10,9 +10,9 @@ RSpec.describe "Merchant Discounts Index (/merchants/:id/discounts)" do
 
     expect(page).to have_content("#{@merchant1.name} Bulk Discounts")
     expect(page).to have_link("Discount 1")
-    expect(page).to have_content("Percentage: #{@m1_discount1.percentage}, Threshold: #{@m1_discount1.threshold}")
+    expect(page).to have_content("Percentage: #{@m1_discount1.percentage}%, Threshold: #{@m1_discount1.threshold}")
     expect(page).to have_link("Discount 2")
-    expect(page).to have_content("Percentage: #{@m1_discount2.percentage}, Threshold: #{@m1_discount2.threshold}")
+    expect(page).to have_content("Percentage: #{@m1_discount2.percentage}%, Threshold: #{@m1_discount2.threshold}")
    end
 
    it "displays a link to create a new discount, that takes me to a form" do
@@ -27,11 +27,19 @@ RSpec.describe "Merchant Discounts Index (/merchants/:id/discounts)" do
     visit "/merchants/#{@merchant1.id}/discounts"
     
     expect(page).to have_link("Discount 1")
-    expect(page).to have_content("Percentage: #{@m1_discount1.percentage}, Threshold: #{@m1_discount1.threshold}")
+    expect(page).to have_content("Percentage: #{@m1_discount1.percentage}%, Threshold: #{@m1_discount1.threshold}")
     expect(page).to have_button("Delete Discount 1")
     click_button "Delete Discount 1"
     expect(current_path).to eq("/merchants/#{@merchant1.id}/discounts")
-    expect(page).to_not have_content("Percentage: #{@m1_discount1.percentage}, Threshold: #{@m1_discount1.threshold}")
+    expect(page).to_not have_content("Percentage: #{@m1_discount1.percentage}%, Threshold: #{@m1_discount1.threshold}")
+   end
+
+   it "redirects me to a Discounts show page when I click one of the links" do
+    visit "/merchants/#{@merchant1.id}/discounts"
+
+    click_link("Discount 1")
+
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/discounts/#{@m1_discount1.id}")
    end
   end
 
