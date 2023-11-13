@@ -22,7 +22,7 @@ RSpec.describe "Merchant Discounts New (/merchants/:id/discounts/new)" do
 
       expect(current_path).to eq("/merchants/#{@merchant1.id}/discounts")
       expect(page).to have_link("Discount 3")
-      expect(page).to have_content("Percentage: 25, Threshold: 30")
+      expect(page).to have_content("Percentage: 25%, Threshold: 30")
     end
     it "validates input and flashes an error message" do 
       visit "/merchants/#{@merchant1.id}/discounts/new"
