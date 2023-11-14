@@ -11,4 +11,10 @@ class InvoiceItem < ApplicationRecord
   def unit_price_show
     unit_price_formatted = (unit_price.to_f / 100)
   end
+
+  def find_discount
+   discount = Discount.where("merchant_id = #{self.item.merchant.id} and threshold <= #{self.quantity}")
+                    .order("percentage DESC")
+                    .first
+  end
 end
