@@ -38,6 +38,14 @@ class Invoice < ApplicationRecord
     total_discounted_revenue
   end
 
+  def find_discounts
+    merchants = Merchant.joins(items: :invoices).where("invoices.id = #{self.id}").distinct
+    invoice_discounts = merchants.map do |merchant|
+      merchant.discounts.joins(merchant: {items: :invoice_items}).where("invoice_items.invoice_id = #{self.id} and invoice_items.quantity >= discounts.threshold").order("discounts.percentage DESC").first
+    end
+    invoice_discounts
+  end
+
   def merchant_items(merchant_id)
     items.where("merchant_id = #{merchant_id}")
   end

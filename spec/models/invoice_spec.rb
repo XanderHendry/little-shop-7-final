@@ -129,5 +129,17 @@ RSpec.describe Invoice, type: :model do
         expect(@c1_invoice1.merchant_discount_revenue(@merchant1.id)).to eq(127.5)
       end
     end
+
+    describe "#find_discounts" do 
+      it "finds which discounts have been applied on an invoice, if any" do 
+        discounts1 = @c1_invoice1.find_discounts
+        expect(discounts1).to eq([@m1_discount1])
+        discounts2 = @c1_invoice3.find_discounts
+        expect(discounts2).to eq([@m1_discount2])
+        discounts3 = @c2_invoice3.find_discounts
+        expect(discounts3).to match_array([@m2_discount1, @m4_discount2])
+
+      end
+    end
   end
 end
