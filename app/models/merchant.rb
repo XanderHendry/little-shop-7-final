@@ -63,7 +63,6 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-   
     Invoice.joins(:transactions, :items)
             .select("invoices.created_at as order_date, SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue")
             .where("transactions.result = 1 AND items.merchant_id = #{self.id}")

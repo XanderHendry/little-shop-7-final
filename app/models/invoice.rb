@@ -1,4 +1,5 @@
 class Invoice < ApplicationRecord
+  include CurrencyConverter
   belongs_to :customer
   has_many :transactions
   has_many :invoice_items
@@ -14,17 +15,27 @@ class Invoice < ApplicationRecord
 
   def total_revenue
     successful_transaction_ids = transactions.where(result: "success").pluck(:id)
-
+    
     total_revenue_cents = invoice_items
       .joins(invoice: :transactions)
       .where(transactions: {id: successful_transaction_ids})
       .sum("quantity * unit_price")
-
     total_revenue = (total_revenue_cents / 100.0)
   end
 
   def merchant_revenue(merchant_id)
-    items.where("merchant_id = #{merchant_id}").sum(:unit_price)
+    InvoiceItem.joins(:item)
+                .where("items.merchant_id = #{merchant_id} and invoice_items.invoice_id = #{self.id}")
+                .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
+  def merchant_discount_revenue(merchant_id)
+
+    total_discounted_revenue = invoice_items.joins(item: { merchant: :discounts })
+                                            .where('invoice_items.quantity >= discounts.threshold')
+                                            .where("items.merchant_id = #{merchant_id}")
+                                            .sum('invoice_items.quantity * (invoice_items.unit_price - invoice_items.unit_price * discounts.percentage / 100.0)')
+    total_discounted_revenue
   end
 
   def merchant_items(merchant_id)
