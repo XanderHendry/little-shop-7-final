@@ -103,5 +103,14 @@ RSpec.describe InvoiceItem, type: :model do
         expect(discount).to eq(@m1_discount1)
       end
     end
+
+    describe "#discount_revenue" do
+      it "calculates the discounted revenue for the InvoiceItem" do 
+        discount_revenue1 = @invoice_item1.discount_revenue
+        expect(discount_revenue1).to eq(127.5)
+        discount_revenue1 = @invoice_item5.discount_revenue
+        expect(discount_revenue1).to eq(700)
+      end
+    end
   end
 end
