@@ -1,7 +1,7 @@
 <h3>New Discount</h3>
 <%= form_with url: "/merchants/#{@merchant.id}/discounts", method: :post, data: { turbo: false} do |f| %>
   <%= f.label :percentage %>
-  <%= f.range_field :percentage, in: 1..100 %>
+  <%= f.number_field :percentage, in: 1..100 %>
   <%= f.label :threshold %>
   <%= f.number_field :threshold %>
   <%= f.submit "Create" %>
