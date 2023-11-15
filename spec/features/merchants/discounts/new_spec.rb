@@ -7,6 +7,7 @@ RSpec.describe "Merchant Discounts New (/merchants/:id/discounts/new)" do
   context "visiting the merchant discounts new page" do 
     it "displays a form to create a new discount" do 
       visit "/merchants/#{@merchant1.id}/discounts/new"
+      save_and_open_page
 
       expect(page).to have_content("New Discount")
       expect(page).to have_field(:percentage)
