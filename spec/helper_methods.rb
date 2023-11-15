@@ -166,8 +166,8 @@ def load_test_data_bd
   @invoice_item7 = create(:invoice_item, status: 0, quantity: 10, unit_price: 25, invoice_id: @c2_invoice2.id, item_id: @m2_item1.id )
   @invoice_item8 = create(:invoice_item, status: 0, quantity: 20, unit_price: 5, invoice_id: @c2_invoice2.id, item_id: @m2_item3.id )
   # c2_invoice3 invoice_items
-  invoice_item9 = create(:invoice_item, status: 2, quantity: 15, unit_price: 15, invoice_id: @c2_invoice3.id, item_id: @m2_item2.id )
-  invoice_item10 = create(:invoice_item, status: 2, quantity: 20, unit_price: 15, invoice_id: @c2_invoice3.id, item_id: @m4_item3.id )
+  @invoice_item9 = create(:invoice_item, status: 2, quantity: 15, unit_price: 15, invoice_id: @c2_invoice3.id, item_id: @m2_item2.id )
+  @invoice_item10 = create(:invoice_item, status: 2, quantity: 20, unit_price: 15, invoice_id: @c2_invoice3.id, item_id: @m4_item3.id )
   # c2_invoice4 invoice_items
   invoice_item11 = create(:invoice_item, status: 0, quantity: 10, unit_price: 25, invoice_id: @c2_invoice4.id, item_id: @m2_item1.id )
 

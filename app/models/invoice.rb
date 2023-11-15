@@ -16,11 +16,10 @@ class Invoice < ApplicationRecord
   def total_revenue
     successful_transaction_ids = transactions.where(result: "success").pluck(:id)
     
-    total_revenue_cents = invoice_items
+    total_revenue = invoice_items
       .joins(invoice: :transactions)
       .where(transactions: {id: successful_transaction_ids})
       .sum("quantity * unit_price")
-    total_revenue = (total_revenue_cents / 100.0)
   end
 
   def merchant_revenue(merchant_id)
@@ -51,6 +50,14 @@ class Invoice < ApplicationRecord
       merchant.discounts.joins(merchant: {items: :invoice_items}).where("invoice_items.invoice_id = #{self.id} and invoice_items.quantity >= discounts.threshold").order("discounts.percentage DESC").first
     end
     invoice_discounts
+  end
+
+  def total_discounted_revenue
+    merchants = Merchant.joins(items: :invoices).where("invoices.id = #{self.id}").distinct
+    subtotals = merchants.map do |merchant|
+      merchant_discount_revenue(merchant.id)
+    end
+    total = subtotals.sum
   end
 
   def merchant_items(merchant_id)
