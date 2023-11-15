@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Invoice, type: :model do
-  xcontext "little-shop-7" do
+  context "little-shop-7" do
     before(:each) do
       @customer1 = Customer.create!(first_name: "John", last_name: "Doe")
       @invoice1 = @customer1.invoices.create!(status: 1)

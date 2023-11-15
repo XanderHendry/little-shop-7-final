@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Merchants Invoice Show" do
-  xcontext "little-shop-7" do
+  context "little-shop-7" do
     before(:each) do
       @merchant = create(:merchant)
 
@@ -87,7 +87,7 @@ RSpec.describe "Merchants Invoice Show" do
 
       it "displays the total revenue for my merchants items on an invoice." do
         visit "/merchants/#{@merchant.id}/invoices/#{@c1_invoice_1.id}"
-        expect(page).to have_content("Total Revenue: 50")
+        expect(page).to have_content("Total Revenue: $50.00")
       end
 
       it "has a button to 'Update Item Status' with a select field, that redirects us to the Merchant Invoice show page" do
@@ -113,6 +113,13 @@ RSpec.describe "Merchants Invoice Show" do
 
         expect(page).to have_content("Total Revenue: $150.00")
         expect(page).to have_content("Total Discounted Revenue: $127.50")
+      end
+      it 'has a link to the applied discounts show page, if there was a discount applied.' do 
+        visit "/merchants/#{@merchant1.id}/invoices/#{@c1_invoice1.id}"
+        expect(page).to have_content("Discount Applied: ")
+        expect(page).to have_link("#{@m1_discount1.percentage}% off #{@m1_discount1.threshold} or more.")
+        click_link("#{@m1_discount1.percentage}% off #{@m1_discount1.threshold} or more.")
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/discounts/#{@m1_discount1.id}")
       end
     end
   end

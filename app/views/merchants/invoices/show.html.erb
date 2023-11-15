@@ -5,6 +5,11 @@
 <p>Created On: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Total Revenue: <%= number_to_currency(@invoice.merchant_revenue(@merchant.id), precision: 2)%></p>
 <p>Total Discounted Revenue: <%= number_to_currency(@invoice.merchant_discount_revenue(@merchant.id), precision: 2)%></p>
+<% if !@discounts.first.nil? %>
+  <% @discounts.each do |discount| %>
+    <p>Discount Applied: <%= link_to "#{discount.percentage}% off #{discount.threshold} or more.", "/merchants/#{discount.merchant_id}/discounts/#{discount.id}" %></p>
+  <% end %>
+<% end %>
 <p>Customer: <%= "#{@invoice.customer.first_name} #{@invoice.customer.last_name}"%></p>
 <section id="item_info">
   <% @invoice.merchant_items(@merchant.id).each do |item| %>
@@ -19,5 +24,5 @@
   <% end %>
   </p>
   <% end %>
-  
+
 </section>

@@ -152,19 +152,19 @@ def load_test_data_bd
   @c6_invoice4 = create(:invoice, status: 0, customer_id: @customer6.id, created_at: "2023-10-21 UTC")
 
   # c1_invoice1 invoice_items
-  invoice_item1 = create(:invoice_item, status: 2, quantity: 15, unit_price: 10, invoice_id: @c1_invoice1.id, item_id: @m1_item2.id )
+  @invoice_item1 = create(:invoice_item, status: 2, quantity: 15, unit_price: 10, invoice_id: @c1_invoice1.id, item_id: @m1_item2.id )
   # c1_invoice2 invoice_items
-  invoice_item2 = create(:invoice_item, status: 2, quantity: 5, unit_price: 30, invoice_id: @c1_invoice2.id, item_id: @m1_item1.id )
-  invoice_item3 = create(:invoice_item, status: 2, quantity: 15, unit_price: 50, invoice_id: @c1_invoice2.id, item_id: @m1_item3.id )
+  @invoice_item2 = create(:invoice_item, status: 2, quantity: 5, unit_price: 30, invoice_id: @c1_invoice2.id, item_id: @m1_item1.id )
+  @invoice_item3 = create(:invoice_item, status: 2, quantity: 15, unit_price: 50, invoice_id: @c1_invoice2.id, item_id: @m1_item3.id )
   # c1_invoice3 invoice_items
-  invoice_item4 = create(:invoice_item, status: 2, quantity: 10, unit_price: 30, invoice_id: @c1_invoice3.id, item_id: @m1_item1.id )
-  invoice_item5 = create(:invoice_item, status: 2, quantity: 20, unit_price: 50, invoice_id: @c1_invoice3.id, item_id: @m1_item3.id )
+  @invoice_item4 = create(:invoice_item, status: 2, quantity: 10, unit_price: 30, invoice_id: @c1_invoice3.id, item_id: @m1_item1.id )
+  @invoice_item5 = create(:invoice_item, status: 2, quantity: 20, unit_price: 50, invoice_id: @c1_invoice3.id, item_id: @m1_item3.id )
 
   # c2_invoice1 invoice_items
-  invoice_item6 = create(:invoice_item, status: 2, quantity: 10, unit_price: 25, invoice_id: @c2_invoice1.id, item_id: @m2_item1.id )
+  @invoice_item6 = create(:invoice_item, status: 2, quantity: 10, unit_price: 25, invoice_id: @c2_invoice1.id, item_id: @m2_item1.id )
   # c2_invoice2 invoice_items
-  invoice_item7 = create(:invoice_item, status: 0, quantity: 10, unit_price: 25, invoice_id: @c2_invoice2.id, item_id: @m2_item1.id )
-  invoice_item8 = create(:invoice_item, status: 0, quantity: 20, unit_price: 5, invoice_id: @c2_invoice2.id, item_id: @m2_item3.id )
+  @invoice_item7 = create(:invoice_item, status: 0, quantity: 10, unit_price: 25, invoice_id: @c2_invoice2.id, item_id: @m2_item1.id )
+  @invoice_item8 = create(:invoice_item, status: 0, quantity: 20, unit_price: 5, invoice_id: @c2_invoice2.id, item_id: @m2_item3.id )
   # c2_invoice3 invoice_items
   invoice_item9 = create(:invoice_item, status: 2, quantity: 15, unit_price: 15, invoice_id: @c2_invoice3.id, item_id: @m2_item2.id )
   invoice_item10 = create(:invoice_item, status: 2, quantity: 20, unit_price: 15, invoice_id: @c2_invoice3.id, item_id: @m4_item3.id )
