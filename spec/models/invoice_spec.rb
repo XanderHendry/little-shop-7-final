@@ -97,7 +97,7 @@ RSpec.describe Invoice, type: :model do
 
       # adding at lest one successful transaction will generate the total rev
       @transaction20 = @invoice3.transactions.create(credit_card_number: "1234567890", credit_card_expiration_date: "4/27", result: 1)
-      expect(@invoice3.total_revenue).to eq(300)
+      expect(@invoice3.total_revenue).to eq(30000)
     end
 
     describe "#merchant_revenue" do
@@ -154,6 +154,13 @@ RSpec.describe Invoice, type: :model do
         discounts3 = @c2_invoice3.find_all_discounts
         expect(discounts3).to match_array([@m2_discount1, @m4_discount2])
 
+      end
+    end
+
+    describe "#total_disounted_revenue" do 
+      it "finds the total discounted revenue for an invoice, across all merchants and items purchased." do 
+        total_discounted_revenue = @c2_invoice3.total_discounted_revenue
+        expect(total_discounted_revenue).to eq(412.50)
       end
     end
   end
