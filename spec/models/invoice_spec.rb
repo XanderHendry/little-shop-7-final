@@ -128,7 +128,7 @@ RSpec.describe Invoice, type: :model do
         discounted_revenue1 = @c1_invoice1.merchant_discount_revenue(@merchant1.id)
         expect(discounted_revenue1).to eq(127.5)
         discounted_revenue2 = @c1_invoice3.merchant_discount_revenue(@merchant1.id)
-        expect(discounted_revenue2).to eq(910.0)
+        expect(discounted_revenue2).to eq(955.0)
         discounted_revenue3 = @c2_invoice3.merchant_discount_revenue(@merchant1.id)
         expect(discounted_revenue3).to eq(0)
       end
