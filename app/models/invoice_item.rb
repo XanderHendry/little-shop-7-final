@@ -17,4 +17,9 @@ class InvoiceItem < ApplicationRecord
                     .order("percentage DESC")
                     .first
   end
+
+  def revenue
+    require 'pry'; binding.pry
+    self.sum("quantity * unit_price")
+  end
 end

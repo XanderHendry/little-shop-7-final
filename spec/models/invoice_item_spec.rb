@@ -97,6 +97,11 @@ RSpec.describe InvoiceItem, type: :model do
         discount = @invoice_item1.find_discount
         expect(discount).to eq(@m1_discount1)
       end
+
+      it "returns the discount with the highest percentage if more than one discount can be applied" do
+        discount = @invoice_item3.find_discount
+        expect(discount).to eq(@m1_discount1)
+      end
     end
   end
 end
