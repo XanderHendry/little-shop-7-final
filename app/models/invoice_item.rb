@@ -19,7 +19,11 @@ class InvoiceItem < ApplicationRecord
   end
 
   def revenue
-    require 'pry'; binding.pry
     self.sum("quantity * unit_price")
+  end
+
+  def discount_revenue
+    discount = self.find_discount
+    InvoiceItem.joins(item: { merchant: :discounts }).where("invoice_items.id = #{self.id} and discounts.id = #{discount.id}").sum("invoice_items.quantity * ( invoice_items.unit_price - invoice_items.unit_price * discounts.percentage / 100.0)")
   end
 end

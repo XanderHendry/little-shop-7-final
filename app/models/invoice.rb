@@ -35,7 +35,11 @@ class Invoice < ApplicationRecord
                 .where("items.merchant_id = #{merchant_id} and invoice_items.invoice_id = #{self.id}")
                 .sum("invoice_items.quantity * invoice_items.unit_price")
     else
-      total_discounted_revenue = invoice_items.joins(item: { merchant: :discounts}).where("discounts.id = #{discount.id}").sum("invoice_items.quantity * (invoice_items.unit_price - invoice_items.unit_price * discounts.percentage / 100.0)")
+      merchant_invoice_items = invoice_items.joins(:item).where("items.merchant_id = #{merchant_id}")
+      subtotals = merchant_invoice_items.map do |invoice_item|
+        invoice_item.discount_revenue
+      end
+      total_discounted_revenue = subtotals.sum
     end
     total_discounted_revenue
   end
@@ -44,13 +48,6 @@ class Invoice < ApplicationRecord
     discount = Discount.joins(merchant: { items: :invoice_items }).where("discounts.merchant_id = #{merchant_id} and invoice_items.invoice_id = #{self.id}").where("discounts.threshold <= invoice_items.quantity").order("discounts.percentage DESC").first
   end
 
-  def find_all_discounts
-    merchants = Merchant.joins(items: :invoices).where("invoices.id = #{self.id}").distinct
-    invoice_discounts = merchants.map do |merchant|
-      merchant.discounts.joins(merchant: {items: :invoice_items}).where("invoice_items.invoice_id = #{self.id} and invoice_items.quantity >= discounts.threshold").order("discounts.percentage DESC").first
-    end
-    invoice_discounts
-  end
 
   def total_discounted_revenue
     merchants = Merchant.joins(items: :invoices).where("invoices.id = #{self.id}").distinct
